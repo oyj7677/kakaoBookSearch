@@ -2,14 +2,21 @@ package com.example.booksearchapp.ui.view
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
+import androidx.lifecycle.ViewModelProvider
 import com.example.booksearchapp.R
+import com.example.booksearchapp.data.repository.BookSearchRepository
+import com.example.booksearchapp.data.repository.BookSearchRepositoryImpl
 import com.example.booksearchapp.databinding.ActivityMainBinding
+import com.example.booksearchapp.ui.viewModel.BookSearchViewModel
+import com.example.booksearchapp.ui.viewModel.BookSearchViewModelProviderFactory
 
 class MainActivity : AppCompatActivity() {
 
     private val binding: ActivityMainBinding by lazy {
         ActivityMainBinding.inflate(layoutInflater)
     }
+
+    private lateinit var bookSearchViewModel: BookSearchViewModel
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -18,10 +25,12 @@ class MainActivity : AppCompatActivity() {
         setupBottomNavigationView()
 
         if (savedInstanceState == null) {
-            supportFragmentManager.beginTransaction()
-                .replace(R.id.frame_layout, SearchFragment())
-                .commit()
+            binding.bottomNavigationView.selectedItemId = R.id.fragment_search
         }
+
+        val bookSearchRepository = BookSearchRepositoryImpl()
+        val factory = BookSearchViewModelProviderFactory(bookSearchRepository)
+        bookSearchViewModel = ViewModelProvider(this, factory)[BookSearchViewModel::class.java]
     }
 
     private fun setupBottomNavigationView() {
