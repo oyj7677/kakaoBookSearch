@@ -1,6 +1,8 @@
 package com.example.booksearchapp.util
 
+import com.example.booksearchapp.BuildConfig
+
 object Constants {
     const val BASE_URL = "https://dapi.kakao.com/"
-    const val api_key = "a917712c01a6b53d98f8ef9189ea20e2"
+    const val API_KEY = BuildConfig.book_api
 }
