@@ -4,7 +4,6 @@ import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProvider
 import com.example.booksearchapp.R
-import com.example.booksearchapp.data.repository.BookSearchRepository
 import com.example.booksearchapp.data.repository.BookSearchRepositoryImpl
 import com.example.booksearchapp.databinding.ActivityMainBinding
 import com.example.booksearchapp.ui.viewModel.BookSearchViewModel
@@ -16,7 +15,7 @@ class MainActivity : AppCompatActivity() {
         ActivityMainBinding.inflate(layoutInflater)
     }
 
-    private lateinit var bookSearchViewModel: BookSearchViewModel
+    lateinit var bookSearchViewModel: BookSearchViewModel
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
