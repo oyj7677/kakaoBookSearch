@@ -1,8 +1,11 @@
 package com.example.booksearchapp.data.model.gson
 
 
+import android.os.Parcelable
 import com.google.gson.annotations.SerializedName
+import kotlinx.parcelize.Parcelize
 
+@Parcelize
 data class Book(
     @SerializedName("authors")
     val authors: List<String>,
@@ -28,4 +31,4 @@ data class Book(
     val translators: List<String>,
     @SerializedName("url")
     val url: String
-)
+) : Parcelable
