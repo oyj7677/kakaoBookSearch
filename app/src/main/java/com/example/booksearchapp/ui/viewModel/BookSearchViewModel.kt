@@ -8,6 +8,9 @@ import com.example.booksearchapp.data.model.gson.Book
 import com.example.booksearchapp.data.model.gson.SearchResponse
 import com.example.booksearchapp.data.repository.BookSearchRepository
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.flow.SharingStarted
+import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.launch
 
 class BookSearchViewModel(private val bookSearchRepository: BookSearchRepository) : ViewModel() {
@@ -33,5 +36,6 @@ class BookSearchViewModel(private val bookSearchRepository: BookSearchRepository
         bookSearchRepository.deleteBooks(book)
     }
 
-    val favoriteBooks = bookSearchRepository.getFavoriteBooks()
+    val favoriteBooks: StateFlow<List<Book>> = bookSearchRepository.getFavoriteBooks()
+        .stateIn(viewModelScope, SharingStarted.WhileSubscribed(5000), listOf())
 }
